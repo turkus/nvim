@@ -13,7 +13,7 @@ return  {
       },
       performance = {
         max_view_entries = 20,
-        debounce = 150,
+        debounce = 100,
       },
       snippet = {
         expand = function(args)
