@@ -23,7 +23,7 @@ return { -- Autoformat
     end,
     formatters_by_ft = {
       lua = { 'stylua' },
-      javascript = { 'eslint', 'prettierd', 'prettier', stop_after_first = true },
+      javascript = { 'eslint', stop_after_first = true },
     },
   },
 }
