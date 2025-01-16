@@ -1,20 +1,22 @@
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 
--- Function to search the visual selection
+local function getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
+
 local function telescope_grep_visual()
-  -- Get the visual selection
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-  local lines = vim.fn.getline(start_pos[2], end_pos[2])
-
-  -- Extract the selected text
-  lines[1] = string.sub(lines[1], start_pos[3], -1)
-  lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
-  local search_text = table.concat(lines, "\n")
-
-  -- Call Telescope with the selected text
-  builtin.grep_string({ search = search_text })
+	local text = getVisualSelection()
+	builtin.live_grep({ default_text = text })
 end
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
