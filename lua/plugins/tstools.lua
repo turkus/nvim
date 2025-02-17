@@ -36,8 +36,30 @@ return {
             { buffer = bufnr, desc = "Go To Source Definition" }
           )
           vim.keymap.set("n", "<leader>lf", "<cmd>TSToolsFixAll<cr>", { buffer = bufnr, desc = "Fix All" })
+          -- vim.keymap.set("n", "<leader>j", vim.diagnostic.open_float, { desc = "Show diagnostics in floating window" })
+          vim.api.nvim_create_autocmd("CursorHold", {
+            pattern = "*",
+            callback = function()
+              vim.diagnostic.open_float(nil, { focusable = false, border = "rounded" })
+            end,
+          })
+          vim.o.updatetime = 300
         end
       end,
+      handlers = {
+      	["textDocument/publishDiagnostics"] = vim.lsp.with(
+          vim.lsp.diagnostic.on_publish_diagnostics,
+          { 
+            virtual_text = false,
+            signs = true,
+            float = {
+              wrap = true,
+              border = "rounded",
+              source = "always",
+            },
+          } -- boolean variable true/false
+        )
+      },
       settings = {
         expose_as_code_action = "all",
         jsx_close_tag = {
