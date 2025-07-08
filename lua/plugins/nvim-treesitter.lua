@@ -23,7 +23,7 @@ return {
         init_selection = "<C-space>",
         node_incremental = "<C-space>",
         scope_incremental = "<C-s>",
-        node_decremental = "<C-backspace>",
+        node_decremental = "<C-h>",
       },
     },
   },
