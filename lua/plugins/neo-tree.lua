@@ -7,6 +7,7 @@ return {
           hide_dotfiles = false,
           hide_gitignored = true,
         },
+        follow_current_file = { enabled = true }, -- Auto-reveal current file
         window = {
           mappings = {
             ["/"] = "noop",
